@@ -1,4 +1,8 @@
 <script>
+  import * as axios from 'axios' 
+  var post = ()=>{
+    
+  }
 </script>
 
 <main>
@@ -20,7 +24,7 @@
     <!-- logic for max-->
     <!-- Logic for food choices -->
     blah blah blah
-    <button>submit</button>
+    <button>RSVP</button>
   </form>
 </main>
 
