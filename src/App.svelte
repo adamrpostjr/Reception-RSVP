@@ -1,16 +1,17 @@
 <script>
-  import Title from "./MrMrs.svelte";
-  import Invite from "./Invite.svelte";
-  import Dates from "./Dates.svelte";
   import RSVP from "./RSVP.svelte";
+  import Card from "./Card.svelte"
 </script>
 
 <main>
-  <Title />
-  <Invite />
-  <Dates />
-  <RSVP />
+  <RSVP /> 
+  <Card/>
 </main>
 
 <style>
+  main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 </style>

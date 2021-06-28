@@ -1,21 +1,22 @@
 const express = require('express');
-var bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 
 const app = express();
 const cors = require('cors');
 
 app.use(cors());
+app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
  });
 
-app.post('/rscp', (res, req)=>{
-    console.log('test')
+app.post('/RSVP', (req, res)=>{
+    console.log(req.body.data)
 })
 
 
