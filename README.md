@@ -7,6 +7,10 @@
 5. Number of Adults / Children (12 under...)
    - Food Choice per person
 
+## Currently working on:
+
+1. Laying out food options
+
 ## Food choices
 
 ### Adult
