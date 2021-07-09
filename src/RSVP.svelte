@@ -1,9 +1,15 @@
 <script>
   import * as axios from "axios";
 
+  import { qOneAnswer } from "./store.js";
+  let coming;
+  qOneAnswer.subscribe((value) => {
+    coming = value;
+  });
+
   var name, email, phone, notes;
 
-  var attending = 6,
+  var attending = 0,
     adults = 0,
     children = 0;
 
@@ -16,23 +22,12 @@
       : "(" + x[1] + ") " + x[2] + (x[3] ? "-" + x[3] : "");
   };
 
-  var post = () => {
-    console.log("test");
-    axios.post("http://192.168.0.2:8087/RSVP", {
-      data: {
-        Name: name,
-        Email: email,
-        Phone: phone,
-        NumAttending: attending,
-        Adults: adults,
-        Children: children,
-        Notes: notes,
-      },
-    });
-  };
+  // TODO: This needs to save the information then move to the next step of choosing food
+
+  var saveInformation = () => {};
 </script>
 
-<form on:submit|preventDefault={post} action="/RSVP" method="POST">
+<form on:submit|preventDefault={saveInformation} action="/RSVP" method="POST">
   <label for="Name">Name *</label>
   <input bind:value={name} type="text" name="Name" required />
   <label for="Email">Email *</label>
@@ -46,49 +41,56 @@
     placeholder="(555) 555-5555"
     required
   />
-  <label for="PeopleAttending">How many attending? *</label>
-  <input
-    type="number"
-    name="PeopleAttending"
-    bind:value={attending}
-    min="1"
-    max="10"
-    required
-  />
-  <!-- logic depending on the number above -->
-  {#if attending > 1}
-    <row>
-      <left>
-        <label for="Adults">Of the {attending} how many are adults? *</label>
-        <input
-          type="number"
-          bind:value={adults}
-          name="Adults"
-          min="1"
-          max={attending - children}
-          required
-        />
-      </left>
-      <right>
-        <label for="Children"
-          >Of the {adults ? attending - adults : 0} how many are children? *</label
-        >
-        <input
-          type="number"
-          bind:value={children}
-          name="Children"
-          min="1"
-          max={attending - adults}
-          required
-        />
-      </right>
-    </row>
+
+  {#if coming}
+    <label for="PeopleAttending">How many attending? *</label>
+    <input
+      type="number"
+      name="PeopleAttending"
+      bind:value={attending}
+      min="1"
+      max="10"
+      required
+    />
+    <!-- logic depending on the number above -->
+    {#if attending > 1}
+      <row>
+        <left>
+          <label for="Adults">Of the {attending} how many are adults? *</label>
+          <input
+            type="number"
+            bind:value={adults}
+            name="Adults"
+            min="1"
+            max={attending - children}
+            required
+          />
+        </left>
+        <right>
+          <label for="Children"
+            >Of the {adults ? attending - adults : 0} how many are children? *</label
+          >
+          <input
+            type="number"
+            bind:value={children}
+            name="Children"
+            min="0"
+            max={attending - adults}
+            required
+          />
+        </right>
+      </row>
+    {/if}
   {/if}
-  <!-- Logic for food choices -->
-  blah blah blah
   <label for="notes">Other Notes</label>
   <textarea bind:value={notes} name="notes" cols="30" rows="4" />
-  <button>RSVP</button>
+  <button>
+    {#if coming}
+      Choose Some Food!
+    {:else}
+      Leave a Note!
+    {/if}
+  </button>
 </form>
 
 <style>
@@ -102,6 +104,9 @@
     display: flex;
     flex-direction: column;
     margin: 25px 150px;
+  }
+  textarea {
+    resize: none;
   }
   row {
     display: flex;
