@@ -30,6 +30,21 @@
       attending > 0 &&
       adults + children == attending
     ) {
+      var adultsComing = [];
+      var childrenComing = [];
+
+      let adult = { Name: "", Food: "" };
+      let child = { Name: "", Food: "" };
+
+      for (let a = 0; a < adults; a++) {
+        // for each adult we need to append an object to the array
+        adultsComing.push(adult);
+      }
+      for (let c = 0; c < children; c++) {
+        // for each child we need to append an object to the array
+        childrenComing.push(child);
+      }
+
       qTwoAnswerTwo.set({
         name: name,
         email: email,
@@ -37,6 +52,10 @@
         attending: attending,
         adults: adults,
         children: children,
+        food: {
+          Adults: adultsComing,
+          Children: childrenComing,
+        },
         notes: notes,
       });
       qTwo.set(1);
@@ -54,6 +73,10 @@
         attending: attending,
         adults: adults,
         children: children,
+        food: {
+          Adults: adultsComing,
+          Children: childrenComing,
+        },
         notes: notes,
       });
     }

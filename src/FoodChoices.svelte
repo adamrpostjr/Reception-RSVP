@@ -1,20 +1,30 @@
 <script>
   import { qTwoAnswerTwo } from "./store.js";
-  import Person from "./People.svelte";
+  import Adult from "./Adults.svelte";
 
   let adults;
-  let choices = []; // an array of objects of people food choices ie {name: Adam, food: pizza, drink: ☕}
   qTwoAnswerTwo.subscribe((value) => {
-    adults = value.adults;
-    choices.length = adults;
+    adults = value.food.Adults;
+    console.log(adults);
   });
 </script>
 
 <foodtainer>
-  {#each choices as choice}
-    <Person />
+  {#each adults as adult}
+    <Adult />
   {/each}
 </foodtainer>
 
 <style>
+  foodtainer {
+    height: 100vh;
+    width: 100%;
+    padding: 25px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    overflow: scroll;
+    box-sizing: border-box;
+  }
 </style>
