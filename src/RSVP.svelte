@@ -1,15 +1,12 @@
 <script>
   import * as axios from "axios";
 
-  import { qOneAnswer } from "./store.js";
-  let coming;
-  qOneAnswer.subscribe((value) => {
-    coming = value;
-  });
+  import { qTwoAnswerTwo, qTwo } from "./store.js";
 
   var name, email, phone, notes;
+  let phoneField, totalAttending;
 
-  var attending = 0,
+  let attending = 0,
     adults = 0,
     children = 0;
 
@@ -24,7 +21,43 @@
 
   // TODO: This needs to save the information then move to the next step of choosing food
 
-  var saveInformation = () => {};
+  let saveInformation = () => {
+    if (
+      name &&
+      email &&
+      phone &&
+      phone.length >= 10 &&
+      attending > 0 &&
+      adults + children == attending
+    ) {
+      qTwoAnswerTwo.set({
+        name: name,
+        email: email,
+        phone: phone,
+        attending: attending,
+        adults: adults,
+        children: children,
+        notes: notes,
+      });
+      qTwo.set(1);
+    } else if (phone.length < 10) {
+      console.log(phone.length);
+      // alert this some how...
+    } else if (adults + children != attending) {
+      console.log(adults, children, attending);
+      // alert this some how....
+    } else {
+      console.log({
+        name: name,
+        email: email,
+        phone: phone,
+        attending: attending,
+        adults: adults,
+        children: children,
+        notes: notes,
+      });
+    }
+  };
 </script>
 
 <form on:submit|preventDefault={saveInformation} action="/RSVP" method="POST">
@@ -36,61 +69,55 @@
   <input
     type="tel"
     name="Phone"
-    on:change={mask}
+    on:blur={mask}
     bind:value={phone}
+    bind:this={phoneField}
     placeholder="(555) 555-5555"
     required
   />
 
-  {#if coming}
-    <label for="PeopleAttending">How many attending? *</label>
-    <input
-      type="number"
-      name="PeopleAttending"
-      bind:value={attending}
-      min="1"
-      max="10"
-      required
-    />
-    <!-- logic depending on the number above -->
-    {#if attending > 1}
-      <row>
-        <left>
-          <label for="Adults">Of the {attending} how many are adults? *</label>
-          <input
-            type="number"
-            bind:value={adults}
-            name="Adults"
-            min="1"
-            max={attending - children}
-            required
-          />
-        </left>
-        <right>
-          <label for="Children"
-            >Of the {adults ? attending - adults : 0} how many are children? *</label
-          >
-          <input
-            type="number"
-            bind:value={children}
-            name="Children"
-            min="0"
-            max={attending - adults}
-            required
-          />
-        </right>
-      </row>
-    {/if}
+  <label for="PeopleAttending">How many attending? *</label>
+  <input
+    type="number"
+    name="PeopleAttending"
+    bind:value={attending}
+    bind:this={totalAttending}
+    min="1"
+    max="10"
+    required
+  />
+  <!-- logic depending on the number above -->
+  {#if attending > 1}
+    <row>
+      <left>
+        <label for="Adults">Of the {attending} how many are adults? *</label>
+        <input
+          type="number"
+          bind:value={adults}
+          name="Adults"
+          min="1"
+          max={attending - children}
+          required
+        />
+      </left>
+      <right>
+        <label for="Children"
+          >Of the {adults ? attending - adults : 0} how many are children? *</label
+        >
+        <input
+          type="number"
+          bind:value={children}
+          name="Children"
+          min="0"
+          max={attending - adults}
+          required
+        />
+      </right>
+    </row>
   {/if}
   <label for="notes">Other Notes</label>
   <textarea bind:value={notes} name="notes" cols="30" rows="4" />
-  <button>
-    {#if coming}
-      Choose Some Food!
-    {:else}
-      Leave a Note!
-    {/if}
-  </button>
+  <button type="submit">Choose Your Meal!</button>
 </form>
 
 <style>

@@ -1,6 +1,7 @@
 <script>
   import RSVP from "./RSVP.svelte";
   import RSVPNotComing from "./RSVPNotComing.svelte";
+  import FoodChoices from "./FoodChoices.svelte";
   import Card from "./Card.svelte";
   import Coming from "./Coming.svelte";
   import { qOne, qTwo, qThree, qFour, qOneAnswer } from "./store.js";
@@ -37,11 +38,11 @@
     {:else}
       <RSVPNotComing />
     {/if}
-  {:else if qOneAnswered && qTwoAnswered && !qThreeAnswered && !qFourAnswered}
-    adult food choices
-  {:else if qOneAnswered && qTwoAnswered && qThreeAnswered && !qFourAnswered}
+  {:else if coming && qOneAnswered && qTwoAnswered && !qThreeAnswered && !qFourAnswered}
+    <FoodChoices />
+  {:else if coming && qOneAnswered && qTwoAnswered && qThreeAnswered && !qFourAnswered}
     children food choices
-  {:else if qOneAnswered && qTwoAnswered && qThreeAnswered && qFourAnswered}
+  {:else if (qOneAnswered && qTwoAnswered && qThreeAnswered && qFourAnswered) || (!coming && qOneAnswered && qTwoAnswered)}
     The End -- submit / store a cookie or some shit
   {/if}
 

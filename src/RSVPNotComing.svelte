@@ -1,7 +1,9 @@
 <script>
-  import { qOneAnswer } from "./store.js";
+  import { qTwoAnswerOne, qTwo } from "./store.js";
 
   var name, email, phone, notes;
+
+  let phoneField;
 
   var mask = (e) => {
     var x = e.target.value
@@ -14,7 +16,23 @@
 
   // TODO: This needs to save the information then move to the next step of choosing food
 
-  function saveInformation() {}
+  function saveInformation() {
+    if (name && email && phone && phone.length >= 10) {
+      // save
+      qTwoAnswerOne.set({
+        name: name,
+        email: email,
+        phone: phone,
+        notes: notes,
+      });
+      qTwo.set(1);
+    } else if (phone.length < 10) {
+      console.log(phone.length);
+      // alert this some how?
+    } else {
+      console.log({ name: name, email: email, phone: phone, notes: notes });
+    }
+  }
 </script>
 
 <form on:submit|preventDefault={saveInformation} action="/RSVP" method="POST">
@@ -26,10 +44,12 @@
   <input
     type="tel"
     name="Phone"
-    on:change={mask}
+    on:blur={mask}
     bind:value={phone}
+    bind:this={phoneField}
     placeholder="(555) 555-5555"
     required
+    min="14"
   />
   <label for="notes">Other Notes</label>
   <textarea bind:value={notes} name="notes" cols="30" rows="4" />
