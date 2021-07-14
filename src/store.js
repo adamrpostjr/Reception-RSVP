@@ -26,10 +26,10 @@ export const qTwoAnswerTwo = writable(0) // name phone email comment adults chil
 * This is for the Adult Food Choices 
 * this will be if the question has not been answered and filled with an array json objects ( one for each perons )
 */
-export const qThreeAnswer = writable(0) // food for each adult person
+export const qThreeAnswer = writable([]) // food for each adult person
 /*
 * This is for the Child Food Choices 
 * this will be if the question has not been answered and filled with an array json objects ( one for each perons )
 */
-export const qFourAnswer = writable(0) // food for each child person
+export const qFourAnswer = writable([]) // food for each child person
 

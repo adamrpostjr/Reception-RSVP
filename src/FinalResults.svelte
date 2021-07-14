@@ -1,0 +1,73 @@
+<script>
+  import { qTwoAnswerTwo, qThreeAnswer, qFourAnswer } from "./store";
+
+  let info, adultFood, childFood;
+
+  qTwoAnswerTwo.subscribe((value) => {
+    info = value;
+    console.log(value);
+  });
+  qThreeAnswer.subscribe((value) => {
+    adultFood = value;
+    console.log(value);
+  });
+  qFourAnswer.subscribe((value) => {
+    childFood = value;
+    console.log(value);
+  });
+</script>
+
+<main>
+  Does this information look okay?
+  <div>
+    <h2>Contact Information</h2>
+    <p>Contact Name: {info.name}</p>
+    <p>Contact Email: {info.email}</p>
+    <p>Contact Phone: {info.phone}</p>
+  </div>
+  <container>
+    <h2>Adults</h2>
+    {#each adultFood as adult}
+      <div class="each">
+        <p>Name:<br /> {adult.name}</p>
+        <p>Food:<br /> {adult.food}</p>
+      </div>
+    {/each}
+  </container>
+  <container>
+    <h2>Children</h2>
+    {#each childFood as child}
+      <div class="each">
+        <p>Name:<br /> {child.name}</p>
+        <p>Food:<br /> {child.food}</p>
+      </div>
+    {/each}
+  </container>
+  <button>Start Over</button>
+  <button>RSVP</button>
+</main>
+
+<style>
+  h2 {
+    flex: 1 0 100%;
+    text-align: center;
+  }
+  .each {
+    flex: 1 0 31%;
+    text-align: center;
+  }
+  main {
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: block;
+    height: 100vh;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+</style>

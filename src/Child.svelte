@@ -1,14 +1,57 @@
 <script>
-  export let Name;
-  export let FoodChoice;
+  import { qFourAnswer, qTwoAnswerTwo } from "./store.js";
+  import axios from "axios";
+
+  export let person;
+
+  let children;
+  let numberOfChildren;
+  qTwoAnswerTwo.subscribe((value) => {
+    children = value.food.Children;
+    numberOfChildren = children.length;
+  });
+
+  let childChoices;
+  qFourAnswer.subscribe((value) => {
+    childChoices = value;
+  });
+
+  let Name;
+  let FoodChoice;
+
+  const updateThisChild = () => {
+    if (Name && FoodChoice != 0) {
+      if ((!childChoices || childChoices.length == 0) && person > 0) {
+        let placeholderArray = [];
+        placeholderArray.length = numberOfChildren;
+        qFourAnswer.set(placeholderArray);
+      }
+      childChoices.splice(person, 1, {
+        name: Name,
+        food: FoodChoice,
+      });
+      qFourAnswer.set(childChoices);
+    }
+  };
 </script>
 
 <foodSelection>
-  <input type="text" placeholder="Name" bind:value={Name} />
-  <select name="FoodChoice" bind:value={FoodChoice}>
+  <input
+    type="text"
+    placeholder="Name"
+    on:blur={updateThisChild}
+    bind:value={Name}
+  />
+  <select name="FoodChoice" on:blur={updateThisChild} bind:value={FoodChoice}>
     <option value="0" disabled selected>Choose your meal</option>
-    <option value="1">Top Round of Beef</option>
-    <option value="2">Salmon</option>
+    <option value="Chicken Fingers and Steak Fries"
+      >Chicken Fingers and Steak Fries</option
+    >
+    <option value="Grilled Cheese and Steak Fries"
+      >Grilled Cheese and Steak Fries</option
+    >
+    <option value="Pasta w/ Marinara">Pasta w/ Marinara</option>
+    <option value="Pasta w/ Butter">Pasta w/ Butter</option>
   </select>
   <div>
     <header>

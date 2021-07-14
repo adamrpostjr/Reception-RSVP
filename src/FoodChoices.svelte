@@ -1,16 +1,39 @@
 <script>
-  import { qTwoAnswerTwo, qThreeAnswer, qThree } from "./store.js";
+  import {
+    qTwoAnswerTwo,
+    qThreeAnswer,
+    qThree,
+    qFour,
+    qFourAnswer,
+  } from "./store.js";
   import Adult from "./Adults.svelte";
+  import Child from "./Child.svelte";
 
   let adults;
+  let children;
   qTwoAnswerTwo.subscribe((value) => {
     adults = value.food.Adults;
+    children = value.food.Children;
   });
 
   let q3Ans;
   qThreeAnswer.subscribe((value) => {
     q3Ans = value;
-    console.log(value);
+  });
+
+  let q4Ans;
+  qFourAnswer.subscribe((value) => {
+    q4Ans = value;
+  });
+
+  let q3;
+  qThree.subscribe((value) => {
+    q3 = value;
+  });
+
+  let q4;
+  qFour.subscribe((value) => {
+    q4 = value;
   });
 
   const saveAdultFood = () => {
@@ -18,15 +41,31 @@
       qThree.set(1);
     }
   };
+
+  const saveChildFood = () => {
+    if (q4Ans.length == children.length) {
+      qFour.set(1);
+    }
+  };
 </script>
 
 <foodtainer>
-  <form on:submit|preventDefault={saveAdultFood}>
-    {#each adults as adult, i}
-      <Adult person={i} />
-    {/each}
-    <button type="submit">Save Adult Food Choices</button>
-  </form>
+  {#if !q3 && !q4}
+    <form on:submit|preventDefault={saveAdultFood}>
+      {#each adults as adult, i}
+        <Adult person={i} />
+      {/each}
+      <button type="submit">Save Adult Food Choices</button>
+    </form>
+  {/if}
+  {#if q3 && !q4}
+    <form on:submit|preventDefault={saveChildFood}>
+      {#each children as child, i}
+        <Child person={i} />
+      {/each}
+      <button type="submit">Save Child Food Choices</button>
+    </form>
+  {/if}
 </foodtainer>
 
 <style>
@@ -39,11 +78,13 @@
     flex-direction: row;
     align-items: flex-start;
     flex-wrap: wrap;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     box-sizing: border-box;
   }
   form {
     overflow: hidden;
+    display: contents;
   }
   button {
     width: 100%;

@@ -4,6 +4,7 @@
   import FoodChoices from "./FoodChoices.svelte";
   import Card from "./Card.svelte";
   import Coming from "./Coming.svelte";
+  import FinalResults from "./FinalResults.svelte";
   import { qOne, qTwo, qThree, qFour, qOneAnswer } from "./store.js";
 
   let qOneAnswered;
@@ -38,12 +39,10 @@
     {:else}
       <RSVPNotComing />
     {/if}
-  {:else if coming && qOneAnswered && qTwoAnswered && !qThreeAnswered && !qFourAnswered}
+  {:else if coming && qOneAnswered && qTwoAnswered && (!qThreeAnswered || !qFourAnswered)}
     <FoodChoices />
-  {:else if coming && qOneAnswered && qTwoAnswered && qThreeAnswered && !qFourAnswered}
-    children food choices
   {:else if (qOneAnswered && qTwoAnswered && qThreeAnswered && qFourAnswered) || (!coming && qOneAnswered && qTwoAnswered)}
-    The End -- submit / store a cookie or some shit
+    <FinalResults />
   {/if}
 
   <Card />

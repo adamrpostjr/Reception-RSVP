@@ -3,12 +3,17 @@
   import axios from "axios";
 
   export let person;
-
+  // form question 2
   let adults;
   let numberOfAdults;
   qTwoAnswerTwo.subscribe((value) => {
     adults = value.food.Adults;
     numberOfAdults = adults.length;
+  });
+  // question 3 - adult food choices
+  let adultChoices;
+  qThreeAnswer.subscribe((value) => {
+    adultChoices = value;
   });
 
   let Name;
@@ -16,16 +21,16 @@
 
   const updateThisAdult = () => {
     if (Name && FoodChoice != 0) {
-      axios
-        .post("http://127.0.0.1:8087/processAdults", {
-          totalNumberOfAdults: numberOfAdults,
-          myIndex: person,
-          name: Name,
-          food: FoodChoice,
-        })
-        .then((response) => {
-          qThreeAnswer.set(response.data);
-        });
+      if ((!adultChoices || adultChoices.length == 0) && person > 0) {
+        let placeholderArray = [];
+        placeholderArray.length = numberOfAdults;
+        qThreeAnswer.set(placeholderArray);
+      }
+      adultChoices.splice(person, 1, {
+        name: Name,
+        food: FoodChoice,
+      });
+      qThreeAnswer.set(adultChoices);
     }
   };
 </script>
@@ -45,8 +50,8 @@
     required
   >
     <option value="0" disabled selected>Choose your meal</option>
-    <option value="1">Top Round of Beef</option>
-    <option value="2">Salmon</option>
+    <option value="Top Round of Beef">Top Round of Beef</option>
+    <option value="Salmon">Salmon</option>
   </select>
   <div>
     <header>
