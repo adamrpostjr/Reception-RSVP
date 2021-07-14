@@ -1,17 +1,22 @@
 <script>
-  import { qTwoAnswerTwo, qThreeAnswer } from "./store.js";
+  import { qTwoAnswerTwo, qThreeAnswer, qThree } from "./store.js";
   import Adult from "./Adults.svelte";
 
   let adults;
   qTwoAnswerTwo.subscribe((value) => {
     adults = value.food.Adults;
-    // console.log(adults);
   });
 
-  qThreeAnswer.set(adults);
+  let q3Ans;
+  qThreeAnswer.subscribe((value) => {
+    q3Ans = value;
+    console.log(value);
+  });
+
   const saveAdultFood = () => {
-    // if (AdultFoodChoices.length == adults.length) {
-    // }
+    if (q3Ans.length == adults.length) {
+      qThree.set(1);
+    }
   };
 </script>
 

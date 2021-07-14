@@ -1,16 +1,32 @@
 <script>
   import { qThreeAnswer, qTwoAnswerTwo } from "./store.js";
+  import axios from "axios";
+
   export let person;
 
-  qThreeAnswer.subscribe((value) => {
-    console.log(value);
+  let adults;
+  let numberOfAdults;
+  qTwoAnswerTwo.subscribe((value) => {
+    adults = value.food.Adults;
+    numberOfAdults = adults.length;
   });
 
   let Name;
   let FoodChoice;
 
-  var updateThisAdult = () => {
-    qThreeAnswer.set([person].Name, Name);
+  const updateThisAdult = () => {
+    if (Name && FoodChoice != 0) {
+      axios
+        .post("http://127.0.0.1:8087/processAdults", {
+          totalNumberOfAdults: numberOfAdults,
+          myIndex: person,
+          name: Name,
+          food: FoodChoice,
+        })
+        .then((response) => {
+          qThreeAnswer.set(response.data);
+        });
+    }
   };
 </script>
 

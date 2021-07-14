@@ -15,6 +15,17 @@ app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
  });
 
+
+var adultArray = []
+app.post('/processAdults', (req, res) => {
+    let myIndex = req.body.myIndex,
+        name = req.body.name,
+        food = req.body.food
+    
+    adultArray.splice(myIndex, 1, {Name: name, Food: food})
+    res.json(adultArray)
+})
+
 app.post('/RSVP', (req, res)=>{
     console.log(req.body.data)
 })
