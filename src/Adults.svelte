@@ -1,11 +1,33 @@
 <script>
-  export let Name;
-  export let FoodChoice;
+  import { qThreeAnswer, qTwoAnswerTwo } from "./store.js";
+  export let person;
+
+  qThreeAnswer.subscribe((value) => {
+    console.log(value);
+  });
+
+  let Name;
+  let FoodChoice;
+
+  var updateThisAdult = () => {
+    qThreeAnswer.set([person].Name, Name);
+  };
 </script>
 
 <foodSelection>
-  <input type="text" placeholder="Name" bind:value={Name} />
-  <select name="FoodChoice" bind:value={FoodChoice}>
+  <input
+    type="text"
+    placeholder="Name"
+    on:blur={updateThisAdult}
+    bind:value={Name}
+    required
+  />
+  <select
+    name="FoodChoice"
+    on:blur={updateThisAdult}
+    bind:value={FoodChoice}
+    required
+  >
     <option value="0" disabled selected>Choose your meal</option>
     <option value="1">Top Round of Beef</option>
     <option value="2">Salmon</option>
