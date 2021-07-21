@@ -1,7 +1,15 @@
 <script>
   import axios from "axios";
 
-  import { qTwoAnswerTwo, qThreeAnswer, qFourAnswer } from "./store";
+  import {
+    qTwoAnswerTwo,
+    qThreeAnswer,
+    qFourAnswer,
+    qOne,
+    qTwo,
+    qThree,
+    qFour,
+  } from "./store";
 
   let info, adultFood, childFood;
 
@@ -35,6 +43,11 @@
 
   const startFresh = () => {
     // clear all content from the store
+    // we need to either clear all results or show populated results
+    qOne.set(0);
+    qTwo.set(0);
+    qThree.set(0);
+    qFour.set(0);
   };
 </script>
 
@@ -64,7 +77,7 @@
       </div>
     {/each}
   </container>
-  <button on:click={startOver}>Start Over</button>
+  <button on:click={startFresh}>Start Over</button>
   <button on:click={rsvp}>RSVP</button>
 </main>
 
