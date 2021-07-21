@@ -1,4 +1,6 @@
 <script>
+  import axios from "axios";
+
   import { qTwoAnswerTwo, qThreeAnswer, qFourAnswer } from "./store";
 
   let info, adultFood, childFood;
@@ -15,6 +17,25 @@
     childFood = value;
     console.log(value);
   });
+
+  const rsvp = () => {
+    axios
+      .post("/RSVP", {
+        contactinfo: info,
+        adultFood: adultFood,
+        childFood: childFood,
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const startFresh = () => {
+    // clear all content from the store
+  };
 </script>
 
 <main>
@@ -43,8 +64,8 @@
       </div>
     {/each}
   </container>
-  <button>Start Over</button>
-  <button>RSVP</button>
+  <button on:click={startOver}>Start Over</button>
+  <button on:click={rsvp}>RSVP</button>
 </main>
 
 <style>
