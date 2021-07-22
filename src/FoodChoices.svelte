@@ -12,8 +12,10 @@
   let adults;
   let children;
   qTwoAnswerTwo.subscribe((value) => {
-    adults = value.food.Adults;
-    children = value.food.Children;
+    if (value) {
+      adults = value.food.Adults;
+      children = value.food.Children;
+    }
   });
 
   let q3Ans;

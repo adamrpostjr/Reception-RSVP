@@ -7,8 +7,10 @@
   let adults;
   let numberOfAdults;
   qTwoAnswerTwo.subscribe((value) => {
-    adults = value.food.Adults;
-    numberOfAdults = adults.length;
+    if (value) {
+      adults = value.food.Adults;
+      numberOfAdults = adults.length;
+    }
   });
   // question 3 - adult food choices
   let adultChoices;

@@ -21,6 +21,8 @@
 
   // TODO: This needs to save the information then move to the next step of choosing food
 
+  var numberLogic = () => {};
+
   let saveInformation = () => {
     if (
       name &&

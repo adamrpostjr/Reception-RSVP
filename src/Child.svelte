@@ -7,8 +7,10 @@
   let children;
   let numberOfChildren;
   qTwoAnswerTwo.subscribe((value) => {
-    children = value.food.Children;
-    numberOfChildren = children.length;
+    if (value) {
+      children = value.food.Children;
+      numberOfChildren = children.length;
+    }
   });
 
   let childChoices;

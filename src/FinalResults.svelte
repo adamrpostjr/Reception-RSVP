@@ -2,6 +2,8 @@
   import axios from "axios";
 
   import {
+    qOneAnswer,
+    qTwoAnswerOne,
     qTwoAnswerTwo,
     qThreeAnswer,
     qFourAnswer,
@@ -44,10 +46,18 @@
   const startFresh = () => {
     // clear all content from the store
     // we need to either clear all results or show populated results
-    qOne.set(0);
+    // qOne.set(0);
+    // qOneAnswer.set(0);
+
     qTwo.set(0);
+    qTwoAnswerOne.set(0);
+    qTwoAnswerTwo.set(0);
+
     qThree.set(0);
+    qThreeAnswer.set([]);
+
     qFour.set(0);
+    qFourAnswer.set([]);
   };
 </script>
 
