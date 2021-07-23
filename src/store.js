@@ -1,6 +1,12 @@
 import { writable } from 'svelte/store';
 
 /*
+* Alert System
+*/
+
+export const Alerts = writable([])
+
+/*
 * boolen for if the question has been answered
 */
 export const qOne = writable(0) // are you coming?

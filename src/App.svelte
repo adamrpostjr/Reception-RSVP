@@ -7,6 +7,8 @@
   import FinalResults from "./FinalResults.svelte";
   import { qOne, qTwo, qThree, qFour, qOneAnswer } from "./store.js";
 
+  import Alert from "./Alert.svelte";
+
   let qOneAnswered;
   let qTwoAnswered;
   let qThreeAnswered;
@@ -31,6 +33,7 @@
 </script>
 
 <main>
+  <Alert />
   {#if !qOneAnswered && !qTwoAnswered && !qThreeAnswered && !qFourAnswered}
     <Coming />
   {:else if qOneAnswered && !qTwoAnswered && !qThreeAnswered && !qFourAnswered}

@@ -11,10 +11,12 @@
 
   let adults;
   let children;
+  let kidkount;
   qTwoAnswerTwo.subscribe((value) => {
     if (value) {
       adults = value.food.Adults;
       children = value.food.Children;
+      kidkount = value.children;
     }
   });
 
@@ -41,6 +43,9 @@
   const saveAdultFood = () => {
     if (q3Ans.length == adults.length) {
       qThree.set(1);
+      if (kidkount == 0) {
+        qFour.set(1);
+      }
     }
   };
 
@@ -60,7 +65,7 @@
       <button type="submit">Save Adult Food Choices</button>
     </form>
   {/if}
-  {#if q3 && !q4}
+  {#if q3 && !q4 && kidkount != 0}
     <form on:submit|preventDefault={saveChildFood}>
       {#each children as child, i}
         <Child person={i} />

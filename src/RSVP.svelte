@@ -1,7 +1,11 @@
 <script>
   import * as axios from "axios";
 
-  import { qTwoAnswerTwo, qTwo } from "./store.js";
+  import { qTwoAnswerTwo, qTwo, Alerts } from "./store.js";
+  var alert;
+  Alerts.subscribe((value) => {
+    alert = value;
+  });
 
   var name, email, phone, notes;
   let phoneField, totalAttending;
@@ -19,9 +23,24 @@
       : "(" + x[1] + ") " + x[2] + (x[3] ? "-" + x[3] : "");
   };
 
-  // TODO: This needs to save the information then move to the next step of choosing food
+  var numberLogic = () => {
+    if (attending < adults + children) {
+      if (children > 0) {
+        if (children >= attending) {
+          children = attending - 1;
+          adults = 1;
+        } else {
+          adults = attending - children;
+        }
+      } else {
+        adults = attending;
+      }
+    }
 
-  var numberLogic = () => {};
+    if (attending == 1 && adults == 0 && children == 0) {
+      adults = attending;
+    }
+  };
 
   let saveInformation = () => {
     if (
@@ -64,8 +83,16 @@
     } else if (phone.length < 10) {
       console.log(phone.length);
       // alert this some how...
+      let intThisAlert = alert;
+      intThisAlert.push({ message: "Phone Number Seems A Bit Off", code: 3 });
+      Alerts.set(intThisAlert);
     } else if (adults + children != attending) {
+      let intThisAlert = alert;
+      intThisAlert.push({ message: "You Person Count Is A Bit Off", code: 3 });
+      Alerts.set(intThisAlert);
+
       console.log(adults, children, attending);
+      console.log(adults + children === attending);
       // alert this some how....
     } else {
       console.log({
@@ -107,6 +134,7 @@
     name="PeopleAttending"
     bind:value={attending}
     bind:this={totalAttending}
+    on:blur={numberLogic}
     min="1"
     max="10"
     required
@@ -119,6 +147,7 @@
         <input
           type="number"
           bind:value={adults}
+          on:blur={numberLogic}
           name="Adults"
           min="1"
           max={attending - children}
@@ -134,6 +163,7 @@
           bind:value={children}
           name="Children"
           min="0"
+          on:blur={numberLogic}
           max={attending - adults}
           required
         />
