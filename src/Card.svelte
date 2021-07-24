@@ -27,4 +27,16 @@
       height: 100vh;
     }
   }
+
+  @media only screen and (max-width: 414px) {
+    img {
+      width: 100%;
+      height: unset;
+    }
+    card {
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+    }
+  }
 </style>

@@ -45,6 +45,7 @@
     }
     span {
       white-space: nowrap;
+      width: 100%;
     }
   }
 

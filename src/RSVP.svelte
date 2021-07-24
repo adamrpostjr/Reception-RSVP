@@ -227,4 +227,18 @@
       height: 100vh;
     }
   }
+  @media only screen and (max-width: 414px) {
+    row {
+      flex-direction: column;
+    }
+    left,
+    right {
+      float: unset;
+      padding-right: unset;
+      padding-left: unset;
+    }
+    form {
+      padding-top: 80px;
+    }
+  }
 </style>
