@@ -136,4 +136,14 @@
     float: right;
     width: 100%;
   }
+  @media only screen and (max-width: 1024px) {
+    foodSelection {
+      flex: 1 0 auto;
+      background: #d1d1d1;
+      color: black;
+      padding: 25px;
+      margin: 15px;
+      width: 50%;
+    }
+  }
 </style>

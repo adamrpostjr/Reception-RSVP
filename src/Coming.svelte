@@ -38,4 +38,20 @@
     width: 10vw;
     text-align: center;
   }
+
+  @media only screen and (max-width: 1024px) {
+    rsvp {
+      margin: unset;
+    }
+    span {
+      white-space: nowrap;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    rsvp {
+      height: 100vh;
+      order: 2;
+    }
+  }
 </style>

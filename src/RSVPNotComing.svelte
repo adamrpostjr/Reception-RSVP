@@ -71,4 +71,21 @@
   textarea {
     resize: none;
   }
+  @media only screen and (max-width: 1024px) {
+    form {
+      width: 100%;
+      justify-content: flex-start;
+      display: flex;
+      flex-direction: column;
+      margin: unset;
+      box-sizing: border-box;
+      padding: 30px;
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    form {
+      order: 2;
+      height: 100vh;
+    }
+  }
 </style>

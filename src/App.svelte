@@ -57,4 +57,10 @@
     flex-direction: row;
     justify-content: space-between;
   }
+
+  @media only screen and (max-width: 768px) {
+    main {
+      flex-direction: column;
+    }
+  }
 </style>

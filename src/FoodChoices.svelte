@@ -96,4 +96,10 @@
   button {
     width: 100%;
   }
+  @media only screen and (max-width: 768px) {
+    foodtainer {
+      order: 2;
+      height: 100vh;
+    }
+  }
 </style>
