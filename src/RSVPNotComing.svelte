@@ -1,6 +1,8 @@
 <script>
-  import { qTwoAnswerOne, qTwo } from "./store.js";
+  import axios from "axios";
 
+  import { qTwoAnswerOne, qTwo, Alerts } from "./store.js";
+  var alert;
   var name, email, phone, notes;
 
   let phoneField;
@@ -25,6 +27,32 @@
         phone: phone,
         notes: notes,
       });
+
+      axios
+        .post("sorry", {
+          coming: "no",
+          contactinfo: $qTwoAnswerOne,
+        })
+        .then((Response) => {
+          let intThisAlert = alert;
+          intThisAlert.push({ message: "Thank You!!", code: 1 });
+          Alerts.set(intThisAlert);
+
+          // qTwo.set(0);
+          // qTwoAnswerOne.set(0);
+          // qTwoAnswerTwo.set(0);
+
+          // qThree.set(0);
+          // qThreeAnswer.set([]);
+
+          // qFour.set(0);
+          // qFourAnswer.set([]);
+
+          setTimeout(() => {
+            location.reload();
+          }, 3000);
+        });
+
       qTwo.set(1);
     } else if (phone.length < 10) {
       console.log(phone.length);
@@ -88,7 +116,7 @@
       height: 100vh;
     }
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: 500px) {
     form {
       padding-top: 80px;
     }

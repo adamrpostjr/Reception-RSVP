@@ -31,15 +31,25 @@
   const rsvp = () => {
     axios
       .post("/RSVP", {
+        coming: "yes",
         contactinfo: info,
         adultFood: adultFood,
         childFood: childFood,
       })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
+        let intThisAlert = alert;
+        intThisAlert.push({ message: "Thank You!!", code: 1 });
+        Alerts.set(intThisAlert);
+        setTimeout(() => {
+          startFresh();
+          location.reload();
+        }, 3000);
       })
       .catch((error) => {
-        console.log(error);
+        let intThisAlert = alert;
+        intThisAlert.push({ message: "Woops, try again shortly", code: 3 });
+        Alerts.set(intThisAlert);
       });
   };
 
@@ -62,7 +72,7 @@
 </script>
 
 <main>
-  Does this information look okay?
+  <h2>How Does This Information Look?</h2>
   <div>
     <h2>Contact Information</h2>
     <p>Contact Name: {info.name}</p>
@@ -78,15 +88,17 @@
       </div>
     {/each}
   </container>
-  <container>
-    <h2>Children</h2>
-    {#each childFood as child}
-      <div class="each">
-        <p>Name:<br /> {child.name}</p>
-        <p>Food:<br /> {child.food}</p>
-      </div>
-    {/each}
-  </container>
+  {#if childFood}
+    <container>
+      <h2>Children</h2>
+      {#each childFood as child}
+        <div class="each">
+          <p>Name:<br /> {child.name}</p>
+          <p>Food:<br /> {child.food}</p>
+        </div>
+      {/each}
+    </container>
+  {/if}
   <button on:click={startFresh}>Start Over</button>
   <button on:click={rsvp}>RSVP</button>
 </main>

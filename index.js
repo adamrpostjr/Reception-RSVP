@@ -19,6 +19,9 @@ app.get('/', (req, res) => {
 app.post('/RSVP', (req, res)=>{
     console.log(req.body.data)
 })
+app.post('/Sorry', (req, res)=>{
+    console.log(req.body.data)
+})
 
 
 app.listen(8087, () => {

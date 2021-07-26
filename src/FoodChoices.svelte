@@ -102,7 +102,7 @@
       height: 100vh;
     }
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: 500px) {
     foodtainer {
       padding-top: 50px;
     }

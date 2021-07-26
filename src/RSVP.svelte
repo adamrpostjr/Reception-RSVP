@@ -227,7 +227,7 @@
       height: 100vh;
     }
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: 500px) {
     row {
       flex-direction: column;
     }
