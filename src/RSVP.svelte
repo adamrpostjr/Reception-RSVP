@@ -90,7 +90,6 @@
       let intThisAlert = alert;
       intThisAlert.push({ message: "You Person Count Is A Bit Off", code: 3 });
       Alerts.set(intThisAlert);
-
       console.log(adults, children, attending);
       console.log(adults + children === attending);
       // alert this some how....

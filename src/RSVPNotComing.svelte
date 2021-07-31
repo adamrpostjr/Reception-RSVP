@@ -1,8 +1,12 @@
 <script>
   import axios from "axios";
 
-  import { qTwoAnswerOne, qTwo, Alerts } from "./store.js";
+  import { qTwoAnswerOne, qTwo, Alerts, qOne, qOneAnswer } from "./store.js";
   var alert;
+  Alerts.subscribe((value) => {
+    alert = value;
+  });
+
   var name, email, phone, notes;
 
   let phoneField;
@@ -34,20 +38,14 @@
           contactinfo: $qTwoAnswerOne,
         })
         .then((Response) => {
+          document.body.scrollTo(0, 0);
+          qOne.set(0);
+          qTwo.set(0);
           let intThisAlert = alert;
           intThisAlert.push({ message: "Thank You!!", code: 1 });
           Alerts.set(intThisAlert);
-
-          // qTwo.set(0);
-          // qTwoAnswerOne.set(0);
-          // qTwoAnswerTwo.set(0);
-
-          // qThree.set(0);
-          // qThreeAnswer.set([]);
-
-          // qFour.set(0);
-          // qFourAnswer.set([]);
-
+          qOneAnswer.set(0);
+          qTwoAnswerOne.set(0);
           setTimeout(() => {
             location.reload();
           }, 3000);

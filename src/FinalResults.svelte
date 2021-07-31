@@ -11,9 +11,15 @@
     qTwo,
     qThree,
     qFour,
+    Alerts,
   } from "./store";
 
   let info, adultFood, childFood;
+  var alert;
+  var processing;
+  Alerts.subscribe((value) => {
+    alert = value;
+  });
 
   qTwoAnswerTwo.subscribe((value) => {
     info = value;
@@ -21,14 +27,13 @@
   });
   qThreeAnswer.subscribe((value) => {
     adultFood = value;
-    console.log(value);
   });
   qFourAnswer.subscribe((value) => {
     childFood = value;
-    console.log(value);
   });
 
   const rsvp = () => {
+    processing = 1;
     axios
       .post("/RSVP", {
         coming: "yes",
@@ -37,12 +42,12 @@
         childFood: childFood,
       })
       .then((response) => {
-        // console.log(response);
         let intThisAlert = alert;
         intThisAlert.push({ message: "Thank You!!", code: 1 });
         Alerts.set(intThisAlert);
         setTimeout(() => {
           startFresh();
+          document.body.scrollTo(0, 0);
           location.reload();
         }, 3000);
       })
@@ -88,7 +93,7 @@
       </div>
     {/each}
   </container>
-  {#if childFood}
+  {#if childFood.length}
     <container>
       <h2>Children</h2>
       {#each childFood as child}
@@ -99,8 +104,12 @@
       {/each}
     </container>
   {/if}
-  <button on:click={startFresh}>Start Over</button>
-  <button on:click={rsvp}>RSVP</button>
+  {#if !processing}
+    <span>
+      <button on:click={startFresh}>Start Over</button>
+      <button on:click={rsvp}>RSVP</button>
+    </span>
+  {/if}
 </main>
 
 <style>
@@ -125,6 +134,18 @@
     flex-direction: row;
     justify-content: space-evenly;
     flex-wrap: wrap;
+  }
+  span {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  span > button {
+    width: 150px;
+    height: 45px;
+    border: unset;
+    border-radius: 5px;
   }
   @media only screen and (max-width: 768px) {
     main {

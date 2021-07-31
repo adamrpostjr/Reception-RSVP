@@ -1,8 +1,11 @@
+require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser')
-
 const app = express();
 const cors = require('cors');
+const db = require('monk')(`${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:27017/hgp`)
+const responses = db.get('responses')
+
 
 app.use(cors());
 app.use(express.static('public'));
@@ -17,10 +20,16 @@ app.get('/', (req, res) => {
 
 
 app.post('/RSVP', (req, res)=>{
-    console.log(req.body.data)
+    res.json('wooo')
+    let realResp = req.body
+
+    
+    responses.insert(realResp)
 })
 app.post('/Sorry', (req, res)=>{
-    console.log(req.body.data)
+    res.json('its okay!')
+    let realResp = req.body
+    responses.insert(realResp)
 })
 
 

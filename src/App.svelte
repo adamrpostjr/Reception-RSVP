@@ -44,7 +44,7 @@
     {/if}
   {:else if coming && qOneAnswered && qTwoAnswered && (!qThreeAnswered || !qFourAnswered)}
     <FoodChoices />
-  {:else if (qOneAnswered && qTwoAnswered && qThreeAnswered && qFourAnswered) || (!coming && qOneAnswered && qTwoAnswered)}
+  {:else if (qOneAnswered && qTwoAnswered && qThreeAnswered && qFourAnswered) || (coming && qOneAnswered && qTwoAnswered)}
     <FinalResults />
   {/if}
 
