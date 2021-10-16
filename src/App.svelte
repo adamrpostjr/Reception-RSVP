@@ -1,13 +1,13 @@
 <script>
-  import RSVP from "./RSVP.svelte";
-  import RSVPNotComing from "./RSVPNotComing.svelte";
-  import FoodChoices from "./FoodChoices.svelte";
-  import Card from "./Card.svelte";
-  import Coming from "./Coming.svelte";
-  import FinalResults from "./FinalResults.svelte";
-  import { qOne, qTwo, qThree, qFour, qOneAnswer } from "./store.js";
+  import RSVP from './RSVP.svelte';
+  import RSVPNotComing from './RSVPNotComing.svelte';
+  import FoodChoices from './FoodChoices.svelte';
+  import Card from './Card.svelte';
+  import Coming from './Coming.svelte';
+  import FinalResults from './FinalResults.svelte';
+  import { qOne, qTwo, qThree, qFour, qOneAnswer } from './store.js';
 
-  import Alert from "./Alert.svelte";
+  import Alert from './Alert.svelte';
 
   let qOneAnswered;
   let qTwoAnswered;
@@ -33,7 +33,7 @@
 </script>
 
 <main>
-  <Alert />
+  <!-- <Alert />
   {#if !qOneAnswered && !qTwoAnswered && !qThreeAnswered && !qFourAnswered}
     <Coming />
   {:else if qOneAnswered && !qTwoAnswered && !qThreeAnswered && !qFourAnswered}
@@ -46,8 +46,8 @@
     <FoodChoices />
   {:else if (qOneAnswered && qTwoAnswered && qThreeAnswered && qFourAnswered) || (coming && qOneAnswered && qTwoAnswered)}
     <FinalResults />
-  {/if}
-
+  {/if} -->
+  <h1>We Cannot Wait to See You there!</h1>
   <Card />
 </main>
 
@@ -56,11 +56,21 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
   }
 
   @media only screen and (max-width: 768px) {
     main {
       flex-direction: column;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: unset;
+    }
+  }
+  @media only screen and (max-width: 490px) {
+    h1 {
+      font-size: x-large;
     }
   }
 </style>
